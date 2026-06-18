@@ -1,4 +1,4 @@
-"""Generiert die Architektur-Diagramme für die Multi-Agent Governance Demo."""
+"""Generates the architecture diagrams for the Multi-Agent Governance Demo."""
 
 import matplotlib.pyplot as plt
 import matplotlib.patches as mpatches
@@ -8,7 +8,7 @@ from matplotlib.patches import FancyBboxPatch, FancyArrowPatch
 def _box(ax, x, y, w, h, text, facecolor, edgecolor="#444444",
          fontsize=11, fontweight="bold", textcolor="white",
          subtitle=None, linewidth=2.2):
-    """Zeichnet eine abgerundete Box mit Text."""
+    """Draws a rounded box with text."""
     box = FancyBboxPatch(
         (x - w/2, y - h/2), w, h,
         boxstyle="round,pad=0.12",
@@ -27,7 +27,7 @@ def _box(ax, x, y, w, h, text, facecolor, edgecolor="#444444",
 def _arrow(ax, x1, y1, x2, y2, color="#555555", lw=2,
            label=None, label_offset=(0, 0.15), connectionstyle="arc3,rad=0",
            linestyle="-"):
-    """Zeichnet einen Pfeil."""
+    """Draws an arrow."""
     arrow = FancyArrowPatch(
         (x1, y1), (x2, y2),
         arrowstyle="-|>", color=color, linewidth=lw, zorder=1,
@@ -45,7 +45,7 @@ def _arrow(ax, x1, y1, x2, y2, color="#555555", lw=2,
 
 
 def generate_architecture_diagram(output_path: str) -> None:
-    """Erstellt das Hauptarchitektur-Diagramm."""
+    """Creates the main architecture diagram."""
     fig, ax = plt.subplots(1, 1, figsize=(14, 10))
     ax.set_xlim(-0.5, 11.5)
     ax.set_ylim(-0.8, 10)
@@ -53,14 +53,14 @@ def generate_architecture_diagram(output_path: str) -> None:
     ax.axis("off")
     fig.patch.set_facecolor("white")
 
-    # Titel
+    # Title
     ax.text(5.5, 9.5, "Multi-Agent Governance Architecture",
             ha="center", va="center", fontsize=22, fontweight="bold",
             color="#1a1a2e", family="sans-serif")
     ax.text(5.5, 9.0, "LangGraph  +  Ollama   |   Cloud Infrastructure (Databricks, GKE, Flyte)",
             ha="center", va="center", fontsize=11, color="#777777")
 
-    # === Hintergrund-Bereiche ===
+    # === Background areas ===
     # Agent Layer
     agent_bg = FancyBboxPatch((0.0, 3.5), 4.8, 4.5,
                                boxstyle="round,pad=0.25",
@@ -94,26 +94,26 @@ def generate_architecture_diagram(output_path: str) -> None:
     _box(ax, 2.4, 4.2, 2.2, 0.55, "TOOL CALL", "#546e7a",
          fontsize=10, linewidth=1.5)
 
-    # Governance Ebenen
-    _box(ax, 6.8, 7.0, 2.0, 0.8, "Ebene 1", "#d32f2f",
-         subtitle="Regelbasiert", fontsize=11)
+    # Governance levels
+    _box(ax, 6.8, 7.0, 2.0, 0.8, "Level 1", "#d32f2f",
+         subtitle="Rule-based", fontsize=11)
     ax.text(6.8, 6.15, "Data-Egress-Check\nCost-Limits\nPrivileged-Container\nSecret-Access",
             ha="center", va="center", fontsize=7.5, color="#888",
             linespacing=1.4, zorder=3)
 
-    _box(ax, 9.6, 7.0, 2.0, 0.8, "Ebene 2", "#b71c1c",
-         subtitle="Kontextbasiert", fontsize=11)
+    _box(ax, 9.6, 7.0, 2.0, 0.8, "Level 2", "#b71c1c",
+         subtitle="Context-based", fontsize=11)
     ax.text(9.6, 6.05, "Audit-Trail-Analyse\nExfiltration  |  Secret Harvesting\nCost Explosion  |  Lateral Movement",
             ha="center", va="top", fontsize=7.5, color="#888",
             linespacing=1.4, zorder=3)
 
-    _box(ax, 8.2, 5.1, 2.0, 0.75, "Ebene 3", "#880e4f",
-         subtitle="LLM-basiert (optional)", fontsize=11)
-    ax.text(8.2, 4.4, "Nuancierte Bewertung\nHalluzinations-Check",
+    _box(ax, 8.2, 5.1, 2.0, 0.75, "Level 3", "#880e4f",
+         subtitle="LLM-based (optional)", fontsize=11)
+    ax.text(8.2, 4.4, "Nuanced assessment\nHallucination check",
             ha="center", va="center", fontsize=7.5, color="#888",
             linespacing=1.4, zorder=3)
 
-    # Entscheidungen
+    # Decisions
     _box(ax, 6.5, 3.2, 1.7, 0.65, "APPROVED", "#2e7d32",
          fontsize=11, edgecolor="#1b5e20")
     _box(ax, 10.0, 3.2, 1.7, 0.65, "BLOCKED", "#c62828",
@@ -128,7 +128,7 @@ def generate_architecture_diagram(output_path: str) -> None:
     # Result
     _box(ax, 2.4, 0.5, 2.0, 0.55, "Result", "#37474f", fontsize=10)
 
-    # === Pfeile ===
+    # === Arrows ===
     # User → Supervisor
     _arrow(ax, 2.4, 7.97, 2.4, 7.4)
 
@@ -145,10 +145,10 @@ def generate_architecture_diagram(output_path: str) -> None:
            label="pre-execution check", label_offset=(0.0, 0.25),
            connectionstyle="arc3,rad=-0.15")
 
-    # Ebene 1 → Ebene 2
+    # Level 1 → Level 2
     _arrow(ax, 7.8, 7.0, 8.6, 7.0, color="#b71c1c")
 
-    # Ebene 2 → Ebene 3
+    # Level 2 → Level 3
     _arrow(ax, 9.6, 6.6, 9.2, 5.5, color="#880e4f",
            connectionstyle="arc3,rad=0.15", linestyle="--",
            label="optional", label_offset=(0.7, 0.2))
@@ -169,7 +169,7 @@ def generate_architecture_diagram(output_path: str) -> None:
     _arrow(ax, 3.5, 2.0, 4.7, 1.1, color="#e65100",
            label="log", label_offset=(0.0, 0.15))
 
-    # Audit Log → Ebene 2 (Feedback)
+    # Audit Log → Level 2 (Feedback)
     _arrow(ax, 7.0, 1.2, 10.5, 6.6, color="#e65100", lw=1.5,
            label="feeds context", label_offset=(0.8, 0),
            connectionstyle="arc3,rad=-0.2", linestyle="--")
@@ -177,14 +177,14 @@ def generate_architecture_diagram(output_path: str) -> None:
     # Tool Execution → Result
     _arrow(ax, 2.4, 1.87, 2.4, 0.8)
 
-    # Feedback-Loop: Tool Execution → Supervisor
+    # Feedback loop: Tool Execution → Supervisor
     _arrow(ax, 0.5, 2.2, 0.5, 7.0, color="#37474f", lw=1.5,
            label="next step", label_offset=(-0.55, 0),
            connectionstyle="arc3,rad=0.35", linestyle="--")
 
-    # === Legende ===
+    # === Legend ===
     ly = -0.4
-    ax.text(0.2, ly, "Legende:", fontsize=9, fontweight="bold", color="#333")
+    ax.text(0.2, ly, "Legend:", fontsize=9, fontweight="bold", color="#333")
     legend_items = [
         ("Agent Layer", "#1565c0"), ("Governance Layer", "#d32f2f"),
         ("Approved Flow", "#2e7d32"), ("Audit Trail", "#e65100"),
@@ -201,7 +201,7 @@ def generate_architecture_diagram(output_path: str) -> None:
     plt.savefig(output_path, dpi=180, bbox_inches="tight",
                 facecolor="white", edgecolor="none")
     plt.close()
-    print(f"Diagramm gespeichert: {output_path}")
+    print(f"Diagram saved: {output_path}")
 
 
 if __name__ == "__main__":
